@@ -1,0 +1,5 @@
+/Users/ta3ik/CLionProjects/untitled2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/ta3ik/CLionProjects/untitled2/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/ta3ik/CLionProjects/untitled2/cmake-build-debug/CMakeFiles/untitled2.dir
+/Users/ta3ik/CLionProjects/untitled2/cmake-build-debug/CMakeFiles/untitled2_autogen_timestamp_deps.dir
+/Users/ta3ik/CLionProjects/untitled2/cmake-build-debug/CMakeFiles/untitled2_autogen.dir
