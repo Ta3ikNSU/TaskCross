@@ -65,12 +65,11 @@ void WCwindow::onCreateCircleButtonConstructorClicked(QWidget *wdg) {
     //Circle *figure = new Circle(wdg->findChild<QLineEdit>("radius").text().toDouble(), wdg->findChild<QLineEdit>("xCoord").text().toDouble(),
                  //              wdg->findChild<QLineEdit>("yCoord").text().toDouble(), 255, 255, 255);
     Circle *figure = new Circle(2,2,2, 255, 255, 255);
-    vectorDocument->addElement(*figure);
+    vectorDocument->addElement(figure);
     wdg->close();
 }
 
 void WCwindow::onRotateButtonClicked(){
-    auto color = vectorDocument->getElements()[0].getColor();
 }
 
 void WCwindow::onMoveButtonClicked(){

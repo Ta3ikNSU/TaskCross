@@ -21,7 +21,7 @@ public:
         setColor(r, g, b);
     }
 
-    double area() override {
+    virtual double area() override {
         return radius * radius * M_PI;
     }
 
@@ -46,13 +46,14 @@ public:
         cord.second = y;
     }
 
-    void draw(std::pair<double, double> origin, double angle, QPainter &qPainter) override {
+    virtual void draw(std::pair<double, double> origin, double angle, QPainter &qPainter) override {
         std::pair<double, double> cent = recalcCord(1, cord.first, cord.second, angle);
         qPainter.drawEllipse(cent.first - radius + origin.second,
                              cent.second - radius + origin.second,
                              radius, radius
         );
     }
+
     std::list<std::string> getListParameters() override{
         std::list<std::string> param;
         param.emplace_back("Move x");

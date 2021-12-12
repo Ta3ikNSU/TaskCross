@@ -25,7 +25,7 @@ public:
         color = Color(red, green, blue);
     }
 
-    double area() override {
+    virtual double area() override {
         double right = std::max(from.first, to.first);
         double left = std::min(from.first, to.first);
         double up = std::max(from.second, to.second);

@@ -131,7 +131,7 @@ build untitled2_autogen/timestamp untitled2_autogen/mocs_compilation.cpp | ${cma
 #############################################
 # Phony custom command for CMakeFiles/untitled2_autogen_timestamp_deps
 
-build CMakeFiles/untitled2_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/untitled2_autogen_timestamp_deps: phony /Users/ta3ik/Qt/6.2.2/macos/./libexec/uic /Users/ta3ik/Qt/6.2.2/macos/./libexec/moc
+build CMakeFiles/untitled2_autogen_timestamp_deps | ${cmake_ninja_workdir}CMakeFiles/untitled2_autogen_timestamp_deps: phony /Users/ta3ik/Qt/6.2.2/macos/./libexec/moc /Users/ta3ik/Qt/6.2.2/macos/./libexec/uic
 
 
 #############################################

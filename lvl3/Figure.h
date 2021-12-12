@@ -32,11 +32,11 @@ public:
         );
     }
 
-    virtual double area() = 0;
-    virtual double perimeter() = 0;
-    virtual void draw(std::pair<double, double> origin, double angle, QPainter& qPainter) = 0;
-    virtual std::list<std::string> getListParameters() = 0;
-    virtual void setParam(std::vector<double>)= 0;
+    virtual double area()=0;
+    virtual double perimeter()=0;
+    virtual void draw(std::pair<double, double> origin, double angle, QPainter& qPainter) =0;
+    virtual std::list<std::string> getListParameters()=0;
+    virtual void setParam(std::vector<double>)=0;
 };
 
 

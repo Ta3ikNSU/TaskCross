@@ -11,7 +11,7 @@
 
 class VectorDocument {
 private:
-    std::vector<FlatFigure> elements;
+    std::vector<FlatFigure*> elements;
     std::pair<double, double> origin;
     double angle;
 public:
@@ -20,7 +20,7 @@ public:
         angle = 0;
     }
 
-    const std::vector<FlatFigure> &getElements() {
+    const std::vector<FlatFigure*> &getElements() {
         return elements;
     }
 
@@ -30,7 +30,7 @@ public:
         while( i < index){
          it++; i++;
         }
-        return it->getListParameters();
+        return it.operator*()->getListParameters();
     }
 
     void setParam(int index, std::vector<double> params){
@@ -39,10 +39,10 @@ public:
         while( i < index){
             it++; i++;
         }
-        it->setParam(params);
+        it.operator*()->setParam(params);
     }
 
-    void addElement(FlatFigure& figure){
+    void addElement(FlatFigure* figure){
         elements.push_back(figure);
     }
 
@@ -65,7 +65,7 @@ public:
 
     void draw(QPainter& qPainter) {
         for (auto & element : elements) {
-            element.draw(origin, angle, qPainter);
+            element->draw(origin, angle, qPainter);
         }
     }
 
