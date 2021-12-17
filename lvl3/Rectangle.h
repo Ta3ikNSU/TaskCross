@@ -12,12 +12,23 @@
 class Rectangle : public FlatFigure {
 
 private:
-    Color color;
+    // начальная точка прямоугольника
     std::pair<double, double> from;
+    // конечная точка прямоуголльника
     std::pair<double, double> to;
 public:
+    // удаляем конструктор без параметров, чтобы нельзя было создать прямугольник без координат вершин
     Rectangle() = delete;
 
+    // функция сдвига фигуры относительно начала координат
+    void move(double x, double y) override {
+        from.first += x;
+        from.second -= y;
+        to.first += x;
+        to.second -= y;
+    }
+
+    // конструктор для создания прямоугольника
     Rectangle(double x_from, double y_from, double x_to, double y_to,
               int red, int green, int blue) {
         from = std::pair<double, double>(x_from, y_from);
@@ -25,7 +36,8 @@ public:
         color = Color(red, green, blue);
     }
 
-    virtual double area() override {
+    // функция вычисления площади
+    double area() override {
         double right = std::max(from.first, to.first);
         double left = std::min(from.first, to.first);
         double up = std::max(from.second, to.second);
@@ -33,6 +45,7 @@ public:
         return (right - left) * (up - down);
     }
 
+    // функция вычисления периметра
     double perimeter() override {
         double right = std::max(from.first, to.first);
         double left = std::min(from.first, to.first);
@@ -41,16 +54,19 @@ public:
         return 2 * ((right - left) + (up - down));
     }
 
+    // получить координаты левой точки
     std::pair<double, double> getFromCordPointLeft() {
         if (from.first < to.first) return from;
         else return to;
     }
 
+    // получить координаты правой точки
     std::pair<double, double> getFromCordPointRight() {
         if (from.first < to.first) return to;
         else return from;
     }
 
+    // установить новый координаты для вершин прямоугольника
     void setNewCord(double x_from, double y_from, double x_to, double y_to) {
         from.first = x_from;
         from.second = y_from;
@@ -58,49 +74,38 @@ public:
         to.second = y_to;
     }
 
-    template<class Archive>
-    void serialize(Archive &ar) {
+    // функция для сериализации
+    std::string serialize() override {
+        std::stringstream out;
+        cereal::JSONOutputArchive ar(out);
         ar(cereal::make_nvp("red", color.getRed()),
            cereal::make_nvp("green", color.getGreen()),
-           cereal::make_nvp("blue", color.getBlue())
+           cereal::make_nvp("blue", color.getBlue()),
+           cereal::make_nvp("from_x", from.first),
+           cereal::make_nvp("from_y", from.second),
+           cereal::make_nvp("to_x", to.first),
+           cereal::make_nvp("to_y", to.second)
         );
+        return out.str();
     }
 
+    // функция отрисовки прямугольника
+    void draw(std::pair<double, double> origin, double angle, QPainter *qPainter) override {
+        QPen pen;
+        pen.setWidth(3);
+        pen.setColor(QColor(color.getRed(), color.getGreen(), color.getBlue()));
+        qPainter->setPen(pen);
+        qPainter->rotate((int) angle % 360);
 
-public:
-    void draw(std::pair<double, double> origin, double angle, QPainter &qPainter) override {
-        double sign = -1.0;
-        if (angle > 0) {
-            sign = 1;
-        }
-        qPainter.rotate((int) angle % 360);
-        qPainter.fillRect(QRect(from.first, from.second, to.first, to.second),
-                          QColor(color.getRed(), color.getGreen(), color.getBlue()));
-        qPainter.rotate(-((int) angle % 360));
-//        std::pair<double, double> p1 = recalcCord(sign, from.first, from.second, angle);
-//        std::pair<double, double> p2 = recalcCord(sign, to.first, from.second, angle);
-//        std::pair<double, double> p3 = recalcCord(sign, from.first, to.second, angle);
-//        std::pair<double, double> p4 = recalcCord(sign, to.first, to.second, angle);
-//        qPainter.drawLine(p1.first + origin.first,
-//                          p1.second + origin.second,
-//                          p2.first + origin.first,
-//                          p2.second + origin.second);
-//        qPainter.drawLine(p2.first + origin.first,
-//                          p2.second + origin.second,
-//                          p3.first + origin.first,
-//                          p3.second + origin.second);
-//        qPainter.drawLine(p3.first + origin.first,
-//                          p3.second + origin.second,
-//                          p4.first + origin.first,
-//                          p4.second + origin.second);
-//        qPainter.drawLine(p4.first + origin.first,
-//                          p4.second + origin.second,
-//                          p1.first + origin.first,
-//                          p1.second + origin.second);
+        qPainter->drawRect(QRect(from.first, from.second, to.first - from.first,
+                                 to.second - from.second));
+        qPainter->rotate(-((int) angle % 360));
+
     }
 
-    std::list<std::string> getListParameters() override {
-        std::list<std::string> param;
+    // функция для получения списка параметров, которые есть у прямугольника
+    std::vector<std::string> getListParameters() override {
+        std::vector<std::string> param;
         param.emplace_back("First point x");
         param.emplace_back("First point y");
         param.emplace_back("Second point x");
@@ -111,12 +116,38 @@ public:
         return param;
     }
 
-    void setParam(std::vector<double> list) override {
-        this->setNewCord(list[0], list[1], list[2], list[3]);
-        this->setColor(list[4], list[5], list[6]);
+    //функция установки новых параметров для прямоугольника
+    void replace(std::vector<double> newParams) override {
+        to.first = newParams[0];
+        to.second = newParams[1];
+        from.first = newParams[2];
+        from.second = newParams[3];
+        color.setRed(newParams[4]);
+        color.setGreen(newParams[5]);
+        color.setBlue(newParams[6]);
     }
 
-    ~Rectangle(){}
+
+    // функция для получения списка параметров и их значений, которые есть у прямугольника
+    std::vector<std::pair<std::string, double>> getParams() override {
+        std::vector<std::pair<std::string, double>> params;
+        params.emplace_back("First point x", from.first);
+        params.emplace_back("First point y", from.second);
+        params.emplace_back("Second point x", to.first);
+        params.emplace_back("Second point y", to.second);
+        params.emplace_back("Color red", color.getRed());
+        params.emplace_back("Color green", color.getGreen());
+        params.emplace_back("Color blue", color.getBlue());
+        return params;
+    }
+
+    //деструктор фигуры
+    ~Rectangle() {}
+
+    // возврат название типа
+    std::string getType() override {
+        return "Rectangle";
+    }
 };
 
 

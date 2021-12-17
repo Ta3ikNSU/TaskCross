@@ -10,33 +10,50 @@
 #include "string"
 #include <QPainter>
 #include "cereal/archives/json.hpp"
+#include <cmath>
 
 class FlatFigure {
 protected:
+    //храним цвет фигуры
     Color color;
 public:
+    //функция для получения цвета
     Color getColor() const {
         return color;
     }
 
+    //функция для установки цвета
     void setColor(int r, int g, int b) {
         color.setBlue(b);
         color.setGreen(g);
         color.setRed(r);
     }
 
-    std::pair<double, double> recalcCord(double sign, double x, double y, double angle) {
-        return std::pair<double, double>(
-                x * cos(angle) - sign * y * sin(angle),
-                sign * y * cos(angle) + x * sin(angle)
-        );
-    }
+    // вычисление площади
+    virtual double area() = 0;
 
-    virtual double area()=0;
-    virtual double perimeter()=0;
-    virtual void draw(std::pair<double, double> origin, double angle, QPainter& qPainter) =0;
-    virtual std::list<std::string> getListParameters()=0;
-    virtual void setParam(std::vector<double>)=0;
+    //вычисление периметра
+    virtual double perimeter() = 0;
+
+    // сдвиг фигуры
+    virtual void move(double x, double y) = 0;
+
+    // отрисовка фигуры
+    virtual void draw(std::pair<double, double> origin, double angle, QPainter *qPainter) = 0;
+
+    // функция получения параметров которые есть для фигуры
+    virtual std::vector<std::string> getListParameters() = 0;
+
+    // функция получения параметров выбранной фигуры
+    virtual std::vector<std::pair<std::string, double>> getParams() = 0;
+
+    virtual void replace(std::vector<double>) = 0;
+
+    //функция получения типа фигуры в виде строки
+    virtual std::string getType() = 0;
+
+    //функция для сериализации фигуры
+    virtual std::string serialize() = 0;
 };
 
 
