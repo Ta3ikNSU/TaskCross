@@ -1,7 +1,3 @@
-//
-// Created by Ta3ik on 12.12.2021.
-//
-
 #ifndef TASK_RECTANGLE_H
 #define TASK_RECTANGLE_H
 
@@ -17,7 +13,7 @@ private:
     // конечная точка прямоуголльника
     std::pair<double, double> to;
 public:
-    // удаляем конструктор без параметров, чтобы нельзя было создать прямугольник без координат вершин
+    // удаляем конструктор без параметров, чтобы нельзя было создать прямоугольник без координат вершин
     Rectangle() = delete;
 
     // функция сдвига фигуры относительно начала координат
@@ -66,7 +62,7 @@ public:
         else return from;
     }
 
-    // установить новый координаты для вершин прямоугольника
+    // установить новые координаты вершин прямоугольника
     void setNewCord(double x_from, double y_from, double x_to, double y_to) {
         from.first = x_from;
         from.second = y_from;
@@ -74,7 +70,7 @@ public:
         to.second = y_to;
     }
 
-    // функция для сериализации
+    // функция сериализации
     std::string serialize() override {
         std::stringstream out;
         cereal::JSONOutputArchive ar(out);
@@ -103,7 +99,7 @@ public:
 
     }
 
-    // функция для получения списка параметров, которые есть у прямугольника
+    // функция получения списка параметров прямоугольника
     std::vector<std::string> getListParameters() override {
         std::vector<std::string> param;
         param.emplace_back("First point x");
@@ -116,7 +112,7 @@ public:
         return param;
     }
 
-    //функция установки новых параметров для прямоугольника
+    // функция установки новых параметров прямоугольника
     void replace(std::vector<double> newParams) override {
         to.first = newParams[0];
         to.second = newParams[1];
@@ -128,7 +124,7 @@ public:
     }
 
 
-    // функция для получения списка параметров и их значений, которые есть у прямугольника
+    // функция получения списка параметров прямоугольника с их значениями
     std::vector<std::pair<std::string, double>> getParams() override {
         std::vector<std::pair<std::string, double>> params;
         params.emplace_back("First point x", from.first);
@@ -141,7 +137,7 @@ public:
         return params;
     }
 
-    //деструктор фигуры
+    // деструктор фигуры
     ~Rectangle() {}
 
     // возврат название типа

@@ -1,7 +1,3 @@
-//
-// Created by Ta3ik on 12.12.2021.
-//
-
 #ifndef UNTITLED2_FLAT_FIGURE_H
 #define UNTITLED2_FLAT_FIGURE_H
 
@@ -14,15 +10,15 @@
 
 class FlatFigure {
 protected:
-    //храним цвет фигуры
+    // цвет фигуры
     Color color;
 public:
-    //функция для получения цвета
+    // функция получения цвета фигуры
     Color getColor() const {
         return color;
     }
 
-    //функция для установки цвета
+    // функция установки цвета фигуры
     void setColor(int r, int g, int b) {
         color.setBlue(b);
         color.setGreen(g);
@@ -32,7 +28,7 @@ public:
     // вычисление площади
     virtual double area() = 0;
 
-    //вычисление периметра
+    // вычисление периметра
     virtual double perimeter() = 0;
 
     // сдвиг фигуры
@@ -41,18 +37,19 @@ public:
     // отрисовка фигуры
     virtual void draw(std::pair<double, double> origin, double angle, QPainter *qPainter) = 0;
 
-    // функция получения параметров которые есть для фигуры
+    // функция получения списка названий параметров фигуры
     virtual std::vector<std::string> getListParameters() = 0;
 
-    // функция получения параметров выбранной фигуры
+    // функция получения параметров выбранной фигуры с их значениями
     virtual std::vector<std::pair<std::string, double>> getParams() = 0;
 
+    // функция установки новых параметров фигуры
     virtual void replace(std::vector<double>) = 0;
 
-    //функция получения типа фигуры в виде строки
+    // функция получения типа фигуры в виде строки
     virtual std::string getType() = 0;
 
-    //функция для сериализации фигуры
+    // функция сериализации фигуры
     virtual std::string serialize() = 0;
 };
 

@@ -1,7 +1,3 @@
-//
-// Created by Ta3ik on 12.12.2021.
-//
-
 #ifndef TASK_COLOR_H
 #define TASK_COLOR_H
 
@@ -10,12 +6,12 @@
 
 class Color {
 private:
-    // значения по каждму основному цвету из RGB
+    // значения по каждому цвету из RGB
     int red;
     int green;
     int blue;
 public:
-    // конструктор задающий конкретное значение
+    // конструктор, задающий конкретное значение
     Color(int red_value, int green_value, int blue_value) {
         //значения палитры 0..255
         red = std::max(0, std::min(red_value, 255));

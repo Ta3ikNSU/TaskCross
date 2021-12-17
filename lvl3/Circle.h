@@ -1,7 +1,3 @@
-//
-// Created by Ta3ik on 12.12.2021.
-//
-
 #ifndef TASK_CIRCLE_H
 #define TASK_CIRCLE_H
 
@@ -25,28 +21,28 @@ public:
         setColor(r, g, b);
     }
 
-    // функция вычисление площади
+    // функция вычисления площади
     double area() override {
         return radius * radius * M_PI;
     }
 
-    // функция вычисление периметра
+    // функция вычисления периметра
     double perimeter() override {
         return 2 * radius * M_PI;
     }
 
-    // функция для сдвига фигуры относительно начала координат
+    // функция сдвига фигуры относительно начала координат
     void move(double x, double y) override {
         cord.first += x;
         cord.second += y;
     }
 
-    // функция для получения радиуса круга
+    // функция получения радиуса круга
     double getRadius() {
         return radius;
     }
 
-    // функция для получения координта центра круга
+    // функция получения координат центра круга
     std::pair<double, double> getCord() {
         return cord;
     }
@@ -56,7 +52,7 @@ public:
         radius = r;
     }
 
-    // функция для установки новых координат для центра
+    // функция для установки новых координат центра
     void setCord(double x, double y) {
         cord.first = x;
         cord.second = y;
@@ -77,7 +73,7 @@ public:
     }
 
 
-    // функция для получения списка параметров, которые есть у круга
+    // функция получения списка названий параметров круга
     std::vector<std::string> getListParameters() override {
         std::vector<std::string> param;
         param.emplace_back("Radius");
@@ -89,7 +85,7 @@ public:
         return param;
     }
 
-    // функция для получения списка параметров и их значений, которые есть у круга
+    // функция получения списка параметров круга с их значениями
     std::vector<std::pair<std::string, double>> getParams() override {
         std::vector<std::pair<std::string, double>> params;
         params.emplace_back("Radius", radius);
@@ -101,7 +97,7 @@ public:
         return params;
     }
 
-    // функция для сериализации круга
+    // функция сериализации круга
     std::string serialize() override {
         std::stringstream out;
         cereal::JSONOutputArchive ar(out);
@@ -115,7 +111,7 @@ public:
         return out.str();
     }
 
-    // функция для установки овых параметров для круга
+    // функция установки новых параметров круга
     void replace(std::vector<double> newParams) override {
         radius = newParams[0];
         cord.first = newParams[1];

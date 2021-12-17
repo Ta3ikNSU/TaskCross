@@ -1,7 +1,3 @@
-//
-// Created by Ta3ik on 12.12.2021.
-//
-
 #ifndef UNTITLED2_VECTORDOCUMENT_H
 #define UNTITLED2_VECTORDOCUMENT_H
 
@@ -32,7 +28,7 @@ public:
         return elements;
     }
 
-    // получить список параметров конкретной фигуры и их значения
+    // получить список параметров круга с их значениями
     std::vector<std::string> getParam(int index){
         int i = 0;
         auto it = elements.begin();
@@ -47,12 +43,12 @@ public:
         elements.push_back(figure);
     }
 
-    // получить координаты начала координат
+    // получить точку начала координат
     const std::pair<double, double> &getOrigin() const {
         return origin;
     }
 
-    // установить координтаы нового начала координат
+    // установить точку начала координат
     void setOrigin(const std::pair<double, double> &origin) {
         VectorDocument::origin = origin;
     }
